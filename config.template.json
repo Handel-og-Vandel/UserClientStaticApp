@@ -1,0 +1,6 @@
+{
+  "Runtime": {
+    "ClientServiceApiBase": "${USER_SERVICE_API_BASE}",
+    "Environment": "${ASPNETCORE_ENVIRONMENT:-Production}"
+  }
+}

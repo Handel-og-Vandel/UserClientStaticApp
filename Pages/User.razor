@@ -1,0 +1,34 @@
+@page "/user"
+@inject IHttpClientFactory HttpClientFactory
+
+<PageTitle>User</PageTitle>
+<h3>User</h3>
+@if (user == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">@user.Name</h5>
+            <h6 class="card-subtitle mb-2 text-muted">@user.EmailAddress</h6>
+            <p class="card-text">ID: @user.Id</p>
+            <p class="card-text">Username: @user.Name</p>
+            <p class="card-text">Phone: @user.PhoneNumber</p>
+            <p class="card-text">Address: @user.Address1</p>
+            <p class="card-text">Address: @user.Address2</p>
+            <p class="card-text">City: @user.City</p>
+        </div>
+    </div>
+}
+
+@code {
+    private Models.User? user;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = HttpClientFactory.CreateClient("RemoteUserService"); // navn fra Program.cs
+        user = await client.GetFromJsonAsync<Models.User>("user/d290f1ee-6c54-4b01-90e6-d701748f0851");
+    }
+}
